@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
+    'Pimple' => array($vendorDir . '/pimple/pimple/src'),
     'PhpSpec' => array($vendorDir . '/phpspec/phpspec/src'),
     'Diff' => array($vendorDir . '/phpspec/php-diff/lib'),
 );
