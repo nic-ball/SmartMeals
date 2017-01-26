@@ -3,12 +3,17 @@ declare(strict_types=1);
 
 namespace NicBall\PersonService\Entity;
 
+use PhpSpec\Exception\Exception;
+
 class Person
 {
     private $firstName;
     private $lastName;
     private $dob;
     private $height;
+    private $eyeColour;
+    private $favouriteFoods;
+    private $assignGender;
 
     public function __construct(string $firstName, string $lastName)
     {
@@ -49,13 +54,50 @@ class Person
 
     public function getEyeColour()
     {
-        return $this->eyecolour;
+        return $this->eyeColour;
     }
 
-    public function setEyeColour($eyecolour)
+    public function setEyeColour($eyeColour)
     {
+        $validColours = ["Blue", "Green", "Brown"];
+        $capitalEyeColour = ucwords(strtolower($eyeColour));
 
-        if(!)
+        // Check user input is valid
+        if (!in_array($capitalEyeColour, $validColours)) {
+            // Invalid colour
+            throw new Exception('Invalid Selection...');
+        } else {
+            $this->eyeColour = $capitalEyeColour;
+        }
+    }
+
+    public function setGender($assignGender)
+    {
+        $validGenders = ["Male", "Female", "Trans","M", "F", "T"];
+        $capitalGender = ucwords(strtolower($assignGender));
+
+        // Check input is valid
+        if (!in_array($capitalGender, $validGenders)) {
+            // Invalid Genders
+            throw new Exception('That is an Invalid input...');
+        } else {
+            $this->assignGender = $capitalGender;
+        }
+    }
+
+    public function getGender()
+    {
+        return $this->assignGender;
+    }
+
+    public function addFavouriteFoods($favouriteFoods)
+    {
+        $this->favouriteFoods[] = $favouriteFoods;
+    }
+
+    public function showFavouriteFoods()
+    {
+        return $this->favouriteFoods;
     }
 
 }

@@ -49,4 +49,46 @@ class PersonSpec extends ObjectBehavior
 
         $this->getEyeColour()->shouldReturn("Blue");
     }
+
+    function it_should_throw_an_exception_if_colour_is_invalid()
+    {
+        $this->shouldThrow(new \Exception('Invalid Selection...'))->duringSetEyeColour("Red");
+    }
+
+    function it_should_decapitalise_the_initial_letter_of_string()
+    {
+        $this->setEyeColour("blue");
+
+        $this->getEyeColour()->shouldReturn("Blue");
+    }
+
+    function it_should_allow_gender_to_be_set()
+    {
+        $this->setGender("Male");
+
+        $this->getGender()->shouldReturn("Male");
+    }
+
+    function it_should_throw_an_exception_if_gender_is_invalid()
+    {
+        $this->shouldThrow(new \Exception('That is an Invalid input...'))->duringSetGender("None");
+    }
+
+    function it_should_decapitalise_the_initial_letter_of_inputted_gender()
+    {
+        $this->setGender("male");
+
+        $this->getGender()->shouldReturn("Male");
+    }
+
+    function it_should_be_possible_to_add_list_of_favourite_foods_as_an_array()
+    {
+        $this->addFavouriteFoods([""]);
+
+        $this->showFavouriteFoods()->shouldBeArray();
+
+
+    }
+
+
 }
