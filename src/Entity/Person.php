@@ -52,12 +52,12 @@ class Person
         return $this->height;
     }
 
-    public function getEyeColour()
+    public function getEyeColour() : string
     {
         return $this->eyeColour;
     }
 
-    public function setEyeColour($eyeColour)
+    public function setEyeColour(string $eyeColour)
     {
         $validColours = ["Blue", "Green", "Brown"];
         $capitalEyeColour = ucwords(strtolower($eyeColour));
@@ -71,7 +71,7 @@ class Person
         }
     }
 
-    public function setGender($assignGender)
+    public function setGender(string $assignGender)
     {
         $validGenders = ["Male", "Female", "Trans","M", "F", "T"];
         $capitalGender = ucwords(strtolower($assignGender));
@@ -85,19 +85,20 @@ class Person
         }
     }
 
-    public function getGender()
+    public function getGender() : string
     {
         return $this->assignGender;
     }
 
-    public function addFavouriteFoods($favouriteFoods)
+    public function addFavouriteFoods(array $favouriteFoods)
     {
         $this->favouriteFoods[] = $favouriteFoods;
     }
 
-    public function showFavouriteFoods()
+    public function showFavouriteFoods() : array
     {
         return $this->favouriteFoods;
     }
+
 
 }

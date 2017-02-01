@@ -1,19 +1,15 @@
 <?php
+declare(strict_types=1)
 
-namespace spec\NicBall\PersonService\Src\Collection;
+namespace \src\NicBall\PersonService\Collection\PersonCollection;
 
 
-use NicBall\PersonService\Entity\Person;
-
-class PersonCollection extends Person
+class PersonCollection extends \spec\NicBall\PersonService\Collection\PersonCollectionSpec\PersonCollectionSpec
 {
-    public function __construct($firstName, $lastName, $dob, $height, $eyeColour, $favouriteFoods, $assignGender)
-    {
-        parent::__construct($firstName, $lastName);
-    }
+    private $people = array();
 
-//    public function addPerson()
-//    {
-//
-//    }
+    public function addPerson($person) : Person
+    {
+        $this->people[] = $person;
+    }
 }

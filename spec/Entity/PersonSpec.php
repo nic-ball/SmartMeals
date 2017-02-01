@@ -55,7 +55,7 @@ class PersonSpec extends ObjectBehavior
         $this->shouldThrow(new \Exception('Invalid Selection...'))->duringSetEyeColour("Red");
     }
 
-    function it_should_decapitalise_the_initial_letter_of_string()
+    function it_should_capitalise_the_initial_letter_of_string()
     {
         $this->setEyeColour("blue");
 
@@ -74,7 +74,7 @@ class PersonSpec extends ObjectBehavior
         $this->shouldThrow(new \Exception('That is an Invalid input...'))->duringSetGender("None");
     }
 
-    function it_should_decapitalise_the_initial_letter_of_inputted_gender()
+    function it_should_capitalise_the_initial_letter_of_inputted_gender()
     {
         $this->setGender("male");
 
@@ -86,9 +86,15 @@ class PersonSpec extends ObjectBehavior
         $this->addFavouriteFoods([""]);
 
         $this->showFavouriteFoods()->shouldBeArray();
+        $this->showFavouriteFoods()->shouldContain([""]);
 
 
     }
+//    function it_should_only_contain_string_of_favourite_foods_in_the_array()
+//    {
+//
+//    }
+    // Check that an array of strings is returned
 
 
 }
