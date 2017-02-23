@@ -81,11 +81,11 @@ class PersonSpec extends ObjectBehavior
         $this->getGender()->shouldReturn("Male");
     }
 
-//    function it_should_be_possible_to_add_list_of_favourite_foods_as_an_array()
-//    {
-//        $this->setFavouriteFoods(["Chicken", "Pork", "Pizza"]);
-//
-//        $this->getFavouriteFoods()->shouldBeArray();
+    function it_should_be_possible_to_add_list_of_favourite_foods_as_an_array()
+    {
+        $this->setFavouriteFoods(["Chicken", "Pork", "Pizza"]);
+
+        $this->getFavouriteFoods()->shouldBeArray();
 //
 //
 //    // Add a single extra fave food
