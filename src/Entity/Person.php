@@ -90,15 +90,25 @@ class Person
         return $this->assignGender;
     }
 
-    public function addFavouriteFoods(array $favouriteFoods)
+    public function setFavouriteFoods(array $favouriteFoods)
     {
         $this->favouriteFoods[] = $favouriteFoods;
     }
 
-    public function showFavouriteFoods() : array
-    {
-        return $this->favouriteFoods;
-    }
+//    public function getFavouriteFoods() : array
+//    {
+//        return $this->favouriteFoods;
+//    }
+//
+//    public function addFavouriteFood(array $favouriteFoods)
+//    {
+//
+//    }
+//
+//    public function countFavouriteFoods()
+//    {
+//        // TODO: write logic here
+//    }
 
 
 }

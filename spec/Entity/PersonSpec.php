@@ -81,20 +81,54 @@ class PersonSpec extends ObjectBehavior
         $this->getGender()->shouldReturn("Male");
     }
 
-    function it_should_be_possible_to_add_list_of_favourite_foods_as_an_array()
-    {
-        $this->addFavouriteFoods([""]);
-
-        $this->showFavouriteFoods()->shouldBeArray();
-        $this->showFavouriteFoods()->shouldContain([""]);
-
-
-    }
-//    function it_should_only_contain_string_of_favourite_foods_in_the_array()
+//    function it_should_be_possible_to_add_list_of_favourite_foods_as_an_array()
 //    {
+//        $this->setFavouriteFoods(["Chicken", "Pork", "Pizza"]);
 //
+//        $this->getFavouriteFoods()->shouldBeArray();
+//
+//
+//    // Add a single extra fave food
+//    function it_should_allow_a_single_favourite_food_to_be_added($favoriteFoods)
+//           $this->getFavouriteFoods()->shouldContain(["Chicken", "Pork", "Pizza"]);
+//
+//    } {
+//        $this->addFavouriteFood($favoriteFoods);
+//
+//        $this->countFavouriteFoods()->shouldReturn(1);
 //    }
-    // Check that an array of strings is returned
+
+    // Check if same food added should throw exception
+
+    // Sort array into alphabetical order and build into tests
+
+    // Set array of fave foods and then add a single extra food and check it is turned in alpha order(integration test)
+
+    // Add incorrect type to set fave foods
+
+    // Add incorrect type to add single food
+
+    //
+
+    /*
+     * Tasks:
+     *
+     * - Complete Person class as above
+     * - Complete Employee class which inherits from Person
+     * - Get Person and Employee stored/retrieved in a DB (create DB first)
+     *      - DB Class (& using an Interface?)
+     * - Get this all working as a RESTful service over HTTP
+     *
+     *
+     * Things to read up on/think about:
+     *
+     * - Class Inheritance and Interfaces
+     * - Database design for Person and Employee
+     * - Microservices
+     * - REST/RESTful services (how you should interact with your service)
+     */
+
+
 
 
 }
