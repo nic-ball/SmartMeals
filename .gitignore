@@ -1,1 +1,7 @@
-.idea/*
+
+#IDE Settings
+*.idea/*
+
+#Dependencies
+*vendor/*
+

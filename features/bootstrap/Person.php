@@ -1,21 +1,16 @@
 <?php
-declare(strict_types=1);
 
-namespace NicBall\PersonService\Entity;
-
-use PhpSpec\Exception\Exception;
-
-class Person
+final class Person
 {
     private $firstName;
     private $lastName;
     private $dob;
     private $height;
     private $eyeColour;
-    private $favouriteFoods;
     private $assignGender;
+    private $favoritedItems = [];
 
-    public function __construct(string $firstName, string $lastName, \DateTime $dob, string $height, string $eyeColour, string $assignGender)
+    public function __construct(string $firstName, string $lastName, \DateTime $dob, string $height, string $eyeColour, string $assignGender, $favoritedItems)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -23,6 +18,7 @@ class Person
         $this->height = $height;
         $this->eyeColour = $eyeColour;
         $this->assignGender = $assignGender;
+        $this->favoritedItems = $favoritedItems;
     }
 
     public function getFirstName(): string
@@ -84,14 +80,8 @@ class Person
         return $this->assignGender;
     }
 
-    public function getFavouriteFoods()
+    public function getFavoritedItems() : array
     {
-        return $this->favouriteFoods;
+        return $this->favoritedItems;
     }
-
-    public function addFavouriteFoods($addFavouriteFoods)
-    {
-        $this->addFavouriteFoods[] = $addFavouriteFoods;
-    }
-
 }
