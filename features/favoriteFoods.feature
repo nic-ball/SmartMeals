@@ -10,18 +10,18 @@ Feature: Favoriting a food item
   - Favorited items should be removable
 
   Scenario: Favoriting food item
-    Given there is a person called Nic
+    Given there is a person called "Nic"
     And there is a food item with the sku 357937
-    And Nic has 0 favorited items
-    When Nic favorites an item with sku 357937
-    Then Nic should have 1 favorited item with sku 357937
+    And "Nic" has no favorited items
+    When "Nic" favorites an item with sku 357937
+    Then "Nic" should have favorited the item with sku 357937
 
   Scenario: Favoriting duplicate food items
-    Given there is a person called Jim
+    Given there is a person called "Jim"
     And there is a food item with the sku 111111111
-    And Jim has 1 favorited food item with sku 111111111
-    When Jim attempts to favorite the food item with the sku 111111111
-    Then Jim should have 1 favorited food item with sku 111111111
+    And "Jim" has favorited a food item with sku 111111111
+    When "Jim" attempts to favorite the food item with the sku 111111111
+    Then "Jim" should have 1 favorited food item with sku 111111111
 
   Scenario: Favoriting non-food items
     Given there is a person called Andy

@@ -12,7 +12,15 @@ class FeatureContext implements Context
 {
     private $person;
     private $foodItem;
-    private $favoritedItems;
+    //private $favoritedItems;
+
+    /** @var Person[] */
+    private $people = [];
+
+    /** @var FoodItem[] */
+    private $foodItems = [];
+
+
 
     public function __construct()
     {
@@ -24,7 +32,8 @@ class FeatureContext implements Context
      */
     public function thereIsAPersonCalled(string $firstName)
     {
-        $this->person = new Person($firstName, 'Baloo', new DateTime(1981-06-23), "5'7", 'Blue', 'M', ['']);
+        //this->person = new Person($firstName, 'Baloo', new DateTime(1981-06-23), "5'7", 'Blue', 'M', ['']);
+        $this->people[$firstName] = new Person($firstName, 'Baloo', new DateTime(1981-06-23), "5'7", 'Blue', 'M', ['']);
     }
 
     /**
@@ -32,62 +41,67 @@ class FeatureContext implements Context
      */
     public function thereIsAFoodItemWithTheSku(int $itemSku)
     {
-        $this->foodItem = new FoodItem('Milk', 'Tasty goodness', 1, $itemSku);
+        //$this->foodItem = new FoodItem('Milk', 'Tasty goodness', 1, $itemSku);
+        $this->foodItems[$itemSku] = new FoodItem('Milk', 'Tasty goodness', 1, $itemSku);
     }
 
     /**
-     * @Given Nic has :favoritedItems favorited items
+     * @Given :firstName has no favorited items
      */
-    public function nicHasFavoritedItems($favoritedItems)
+    public function someoneHasNoFavoritedItems($firstName)
     {
-        $this->favoritedItems = new Person('Nic', 'Baloo', new DateTime(1981-06-23), "5'7", 'Blue', 'M', $favoritedItems);
+        //$this->favoritedItems = $favoritedItems;
     }
 
     /**
-     * @When Nic favorites an item with sku :$itemSku
+     * @When :firstName favorites an item with sku :itemSku
      */
-    public function nicFavoritesAnItemWithSku(int $itemSku)
+    public function favoritesAnItemWithSku($firstName, $itemSku)
     {
+        $person = $this->people[$firstName];
+        $foodItems = $this->foodItems[$itemSku];
+        $person->favoriteItem($foodItems);
     }
 
     /**
-     * @Then Nic should have :arg1 favorited item with sku :arg2
+     * @Then :firstName should have favorited the item with sku :itemSku
      */
-    public function nicShouldHaveFavoritedItemWithSku($arg1, $arg2)
+    public function shouldHaveFavoritedTheItemWithSku($firstName, $itemSku)
     {
-        throw new PendingException();
+        $person = $this->people[$firstName];
+        $favoritedItems = $person->getFavoriteItems();
+
+        if (array_key_exists($itemSku, $favoritedItems) == false) {
+            throw new Exception('The person has not favorited the item');
+        }
     }
 
     /**
-     * @Given there is a person called Jim
+     * @Given :firstName has favorited a food item with sku :itemSku
      */
-    public function thereIsAPersonCalledJim()
+    public function hasFavoritedAFoodItemWithSku($firstName, $itemSku)
     {
-        throw new PendingException();
+        $person = $this->people[$firstName];
+        $foodItem = $this->foodItems[$itemSku];
+        $person->favoriteItem($foodItem);
     }
 
     /**
-     * @Given Jim has :arg1 favorited food item with sku :arg2
+     * @When :firstName attempts to favorite the food item with the sku :itemSku
      */
-    public function jimHasFavoritedFoodItemWithSku($arg1, $arg2)
+    public function attemptsToFavoriteTheFoodItemWithTheSku($firstName, $itemSku)
     {
-        throw new PendingException();
+        $person = $this->people[$firstName];
+        $foodItem = $this->foodItems[$itemSku];
+        $person->favoriteItem($foodItem);
     }
 
     /**
-     * @When Jim attempts to favorite the food item with the sku :arg1
+     * @Then :firstName should have :itemSku favorited food item with sku :arg2
      */
-    public function jimAttemptsToFavoriteTheFoodItemWithTheSku($arg1)
+    public function someoneShouldHaveFavoritedFoodItemWithSku($firstName, $itemSku)
     {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then Jim should have :arg1 favorited food item with sku :arg2
-     */
-    public function jimShouldHaveFavoritedFoodItemWithSku($arg1, $arg2)
-    {
-        throw new PendingException();
+        $person
     }
 
     /**

@@ -6,6 +6,7 @@
       <w>favoriting</w>
       <w>favouritefoods</w>
       <w>initializable</w>
+      <w>setfavorited</w>
     </words>
   </dictionary>
 </component>
