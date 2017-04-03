@@ -148,8 +148,8 @@ class FeatureContext implements Context
     public function someoneHasFavoritedItemWithSku($firstName, $itemSku)
     {
         $person = $this->people[$firstName];
-        $foodItems = $this->foodItem[$itemSku];
-        $person->getFavoriteItems($foodItems);
+        $foodItems = $this->foodItems[$itemSku];
+        $person->favoriteItem($foodItems);
     }
 
     /**
@@ -157,31 +157,52 @@ class FeatureContext implements Context
      */
     public function removesTheFavoritedFoodItemWithTheSku($firstName, $itemSku)
     {
+        $person = $this->people[$firstName];
+        $foodItemToRemove = $this->foodItems[$itemSku];
 
+        try {
+            $person->removeFavoriteItems($foodItemToRemove);
+        } catch (Exception $exception) {
+            //Do Nothing
+        }
     }
 
     /**
-     * @Then :arg1 should not have a favorited item with sku :arg2
+     * @Then :firstName should not have a favorited item with sku :itemSku
      */
-    public function shouldNotHaveAFavoritedItemWithSku($arg1, $arg2)
+    public function someoneShouldNotHaveAFavoritedItemWithSku($firstName, $itemSku)
     {
+        $person = $this->people[$firstName];
+        $favoritedItems = $person->getFavoriteItems();
 
+        if (array_key_exists($itemSku, $favoritedItems) == true) {
+            throw new Exception('This item should have been removed');
+        }
+    }
+    /**
+     * @When :firstName attempts to remove a favorited food item with the sku :itemSku
+     */
+    public function attemptsToRemoveAFavoritedFoodItemWithTheSku($firstName, $itemSku)
+    {
+        $person = $this->people[$firstName];
+        $favoritedItems = $person->getFavoriteItems();
+
+        if (array_key_exists($itemSku, $favoritedItems) == true) {
+            throw new Exception("Cannot remove a favorite when no favorites have been added!");
+        }
     }
 
     /**
-     * @When :arg1 attempts to remove a favorited food item
+     * @Then :firstName should still have no favorited food items with the sku :itemSku
      */
-    public function attemptsToRemoveAFavoritedFoodItem($arg1)
+    public function shouldStillHaveNoFavoritedFoodItemsWithTheSku($firstName, $itemSku)
     {
-        throw new PendingException();
-    }
+        $person = $this->people[$firstName];
+        $favoritedItems = $person->getFavoriteItems();
 
-    /**
-     * @Then :arg1 should still have no favorited food items
-     */
-    public function shouldStillHaveNoFavoritedFoodItems($arg1)
-    {
-        throw new PendingException();
+        if (array_key_exists($itemSku, $favoritedItems) == true) {
+            throw new Exception("No food items should exist");
+        }
     }
 }
 

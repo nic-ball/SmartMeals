@@ -107,13 +107,13 @@ final class Person
         return $this->favoritedItems;
     }
 
-    public function removeFavoriteItems($foodItemToRemove)
+    public function removeFavoriteItems(FoodItem $foodItemToRemove)
     {
         if (!array_key_exists($foodItemToRemove->getItemSku(), $this->favoritedItems))
         {
             throw new Exception('Cannot remove an item that has not been favorited');
         }
-        unset($foodItemToRemove['favoritedItems']);
+        unset($this->favoritedItems[$foodItemToRemove->getItemSku()]);
     }
 
 
