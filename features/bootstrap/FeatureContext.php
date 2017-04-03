@@ -21,7 +21,6 @@ class FeatureContext implements Context
     private $foodItems = [];
 
 
-
     public function __construct()
     {
 
@@ -33,7 +32,7 @@ class FeatureContext implements Context
     public function thereIsAPersonCalled(string $firstName)
     {
         //this->person = new Person($firstName, 'Baloo', new DateTime(1981-06-23), "5'7", 'Blue', 'M', ['']);
-        $this->people[$firstName] = new Person($firstName, 'Baloo', new DateTime(1981-06-23), "5'7", 'Blue', 'M', ['']);
+        $this->people[$firstName] = new Person($firstName, 'Baloo', new DateTime(1981 - 06 - 23), "5'7", 'Blue', 'M', ['']);
     }
 
     /**
@@ -89,122 +88,103 @@ class FeatureContext implements Context
     /**
      * @When :firstName attempts to favorite the food item with the sku :itemSku
      */
-    public function attemptsToFavoriteTheFoodItemWithTheSku($firstName, $itemSku)
+    public function someoneAttemptsToFavoriteTheFoodItemWithTheSku($firstName, $itemSku)
     {
         $person = $this->people[$firstName];
         $foodItem = $this->foodItems[$itemSku];
-        $person->favoriteItem($foodItem);
+
+        try {
+            $person->favoriteItem($foodItem);
+        } catch (Exception $exception) {
+            // Do nothing...
+        }
     }
 
     /**
-     * @Then :firstName should have :itemSku favorited food item with sku :arg2
+     * @Then :firstName should have favorited food item with sku :itemSku
      */
     public function someoneShouldHaveFavoritedFoodItemWithSku($firstName, $itemSku)
     {
-        $person
+        $person = $this->people[$firstName];
+        $foodItem = $this->foodItems[$itemSku];
+        $person->getFavoriteItems($foodItem);
+    }
+//    /**
+//     * @Given there is a non-food item with the sku :nonFoodSku
+//     */
+//    public function thereIsANonFoodItemWithTheSku(int $nonFoodSku)
+//    {
+//        $this->nonFoodItem[$nonFoodSku] = new NonFoodItem("Bleach", "Cleans floors", 2, $nonFoodSku);
+//    }
+//
+//    /**
+//     * @Given :firstName has favorited no items
+//     */
+//    public function hasFavoritedNoItems($firstName)
+//    {
+//        //No items favorited
+//    }
+//
+//    /**
+//     * @When :firstName attempts to favorite a non-food item with the sku :nonFoodSku
+//     */
+//    public function attemptsToFavoriteANonFoodItemWithTheSku($firstName, $nonFoodSku)
+//    {
+////        $person = $this->people[$firstName];
+////        $nonFoodItem = $this->nonFoodItem[$nonFoodSku];
+////        $person->
+//    }
+//
+//    /**
+//     * @Then :arg1 should have :arg2 favorited items
+//     */
+//    public function shouldHaveFavoritedItems($arg1, $arg2)
+//    {
+//        throw new PendingException();
+//    }
+    /**
+     * @Given :firstName has favorited item with sku :itemSku
+     */
+    public function someoneHasFavoritedItemWithSku($firstName, $itemSku)
+    {
+        $person = $this->people[$firstName];
+        $foodItems = $this->foodItem[$itemSku];
+        $person->getFavoriteItems($foodItems);
     }
 
     /**
-     * @Given there is a person called Andy
+     * @When :firstName removes the favorited food item with the sku :itemSku
      */
-    public function thereIsAPersonCalledAndy()
+    public function removesTheFavoritedFoodItemWithTheSku($firstName, $itemSku)
+    {
+
+    }
+
+    /**
+     * @Then :arg1 should not have a favorited item with sku :arg2
+     */
+    public function shouldNotHaveAFavoritedItemWithSku($arg1, $arg2)
+    {
+
+    }
+
+    /**
+     * @When :arg1 attempts to remove a favorited food item
+     */
+    public function attemptsToRemoveAFavoritedFoodItem($arg1)
     {
         throw new PendingException();
     }
 
     /**
-     * @Given there is a non-food item with the sku :arg1
+     * @Then :arg1 should still have no favorited food items
      */
-    public function thereIsANonFoodItemWithTheSku($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given Andy has favorited :arg1 items
-     */
-    public function andyHasFavoritedItems($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When Andy attempts to favorite a non-food item with the sku :arg1
-     */
-    public function andyAttemptsToFavoriteANonFoodItemWithTheSku($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then Andy should have :arg1 favorited items
-     */
-    public function andyShouldHaveFavoritedItems($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given there is a person called Corey
-     */
-    public function thereIsAPersonCalledCorey()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given Corey has :arg1 favorited item with sku :arg2
-     */
-    public function coreyHasFavoritedItemWithSku($arg1, $arg2)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When Corey removes the favorited food item with the sku :arg1
-     */
-    public function coreyRemovesTheFavoritedFoodItemWithTheSku($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then Corey should not have a favorited item with sku :arg1
-     */
-    public function coreyShouldNotHaveAFavoritedItemWithSku($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given there is a person called Ron
-     */
-    public function thereIsAPersonCalledRon()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Given Ron has :arg1 favorited items
-     */
-    public function ronHasFavoritedItems($arg1)
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @When Ron attempts to remove a favorited food item
-     */
-    public function ronAttemptsToRemoveAFavoritedFoodItem()
-    {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then Ron should still have :arg1 favorited food items
-     */
-    public function ronShouldStillHaveFavoritedFoodItems($arg1)
+    public function shouldStillHaveNoFavoritedFoodItems($arg1)
     {
         throw new PendingException();
     }
 }
+
+
+
+

@@ -21,23 +21,23 @@ Feature: Favoriting a food item
     And there is a food item with the sku 111111111
     And "Jim" has favorited a food item with sku 111111111
     When "Jim" attempts to favorite the food item with the sku 111111111
-    Then "Jim" should have 1 favorited food item with sku 111111111
+    Then "Jim" should have favorited food item with sku 111111111
 
-  Scenario: Favoriting non-food items
-    Given there is a person called Andy
-    And there is a non-food item with the sku 222222222
-    And Andy has favorited 0 items
-    When Andy attempts to favorite a non-food item with the sku 222222222
-    Then Andy should have 0 favorited items
+#  Scenario: Favoriting non-food items
+#    Given there is a person called "Andy"
+#    And there is a non-food item with the sku 222222222
+#    And "Andy" has favorited no items
+#    When "Andy" attempts to favorite a non-food item with the sku 222222222
+#    Then "Andy" should have no favorited items
 
   Scenario: Remove Favorited food item
-    Given there is a person called Corey
-    And Corey has 1 favorited item with sku 111111111
-    When Corey removes the favorited food item with the sku 111111111
-    Then Corey should not have a favorited item with sku 111111111
+    Given there is a person called "Corey"
+    And "Corey" has favorited item with sku 111111111
+    When "Corey" removes the favorited food item with the sku 111111111
+    Then "Corey" should not have a favorited item with sku 111111111
 
   Scenario: Attempting to remove an item that has not been favorited
-    Given there is a person called Ron
-    And Ron has 0 favorited items
-    When Ron attempts to remove a favorited food item
-    Then Ron should still have 0 favorited food items
+    Given there is a person called "Ron"
+    And "Ron" has no favorited items
+    When "Ron" attempts to remove a favorited food item
+    Then "Ron" should still have no favorited food items

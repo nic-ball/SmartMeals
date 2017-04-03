@@ -90,11 +90,16 @@ final class Person
         return $this->assignGender;
     }
 
-    public function favoriteItem(FoodItem $item)
+    public function favoriteItem(FoodItem $foodItemToFavorite)
     {
         // If an item with the sku is already in $this->favoriteItems
         // Then raise an exception that says you cant fav the same item twice
-        $this->favoritedItems[$item->getItemSku()] = $item;
+        //if ($item == $this->favoriteItem($item))
+        if(array_key_exists($foodItemToFavorite->getItemSku(), $this->favoritedItems))
+        {
+            throw new \Exception("Item has already been favorited");
+        }
+        $this->favoritedItems[$foodItemToFavorite->getItemSku()] = $foodItemToFavorite;
     }
 
     public function getFavoriteItems()
@@ -102,13 +107,14 @@ final class Person
         return $this->favoritedItems;
     }
 
-//    public function getFavoritedItems() : array
-//    {
-//        return $this->favoritedItems;
-//    }
-//
-//    public function setFavoritedItems(array $favoritedItems)
-//    {
-//        $this->favoritedItems = $favoritedItems;
-//    }
+    public function removeFavoriteItems($foodItemToRemove)
+    {
+        if (!array_key_exists($foodItemToRemove->getItemSku(), $this->favoritedItems))
+        {
+            throw new Exception('Cannot remove an item that has not been favorited');
+        }
+        unset($foodItemToRemove['favoritedItems']);
+    }
+
+
 }
