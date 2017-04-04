@@ -1,6 +1,6 @@
 
 #IDE Settings
-*.idea/*
+.idea/*
 
 #Dependencies
 *vendor/*
