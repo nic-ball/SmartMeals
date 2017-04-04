@@ -33,7 +33,7 @@ final class Person
 
     public function favoriteItem(FoodItem $foodItemToFavorite)
     {
-        if(array_key_exists($foodItemToFavorite->getItemSku(), $this->favoritedItems))
+        if ($this->hasFavorited($foodItemToFavorite))
         {
             throw new \Exception("Item has already been favorited");
         }
@@ -42,7 +42,8 @@ final class Person
 
     public function removeFavoriteItems(FoodItem $foodItemToRemove)
     {
-        if (!array_key_exists($foodItemToRemove->getItemSku(), $this->favoritedItems))
+        if (!$this->hasFavorited($foodItemToRemove))
+
         {
             throw new Exception('Cannot remove an item that has not been favorited');
         }
