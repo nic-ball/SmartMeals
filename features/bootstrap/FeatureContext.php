@@ -10,8 +10,6 @@ use Behat\Gherkin\Node\TableNode;
  */
 class FeatureContext implements Context
 {
-    private $person;
-    private $foodItem;
 
     /** @var Person[] */
     private $people = [];
@@ -62,19 +60,6 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Then :firstName should have favorited the item with sku :itemSku
-     */
-    public function shouldHaveFavoritedTheItemWithSku($firstName, $itemSku)
-    {
-        $person = $this->people[$firstName];
-        $favoritedItems = $person->getFavoriteItems();
-
-        if (array_key_exists($itemSku, $favoritedItems) == false) {
-            throw new Exception('The person has not favorited the item');
-        }
-    }
-
-    /**
      * @Given :firstName has favorited a food item with sku :itemSku
      */
     public function hasFavoritedAFoodItemWithSku($firstName, $itemSku)
@@ -105,8 +90,12 @@ class FeatureContext implements Context
     public function someoneShouldHaveFavoritedFoodItemWithSku($firstName, $itemSku)
     {
         $person = $this->people[$firstName];
-        $foodItem = $this->foodItems[$itemSku];
-        $person->getFavoriteItems($foodItem);
+        $itemToCheck = $this->foodItems[$itemSku];
+        $hasFavorited = $person->hasFavorited($itemToCheck);
+
+        if($hasFavorited == false) {
+            throw new Exception('Person has not favorited item with sku');
+        }
     }
 //    /**
 //     * @Given there is a non-food item with the sku :nonFoodSku
@@ -159,11 +148,7 @@ class FeatureContext implements Context
         $person = $this->people[$firstName];
         $foodItemToRemove = $this->foodItems[$itemSku];
 
-        try {
-            $person->removeFavoriteItems($foodItemToRemove);
-        } catch (Exception $exception) {
-            //Do Nothing
-        }
+        $person->removeFavoriteItems($foodItemToRemove);
     }
 
     /**
@@ -172,10 +157,11 @@ class FeatureContext implements Context
     public function someoneShouldNotHaveAFavoritedItemWithSku($firstName, $itemSku)
     {
         $person = $this->people[$firstName];
-        $favoritedItems = $person->getFavoriteItems();
+        $itemToCheck = $this->foodItems[$itemSku];
+        $hasFavorited = $person->hasFavorited($itemToCheck);
 
-        if (array_key_exists($itemSku, $favoritedItems) == true) {
-            throw new Exception('This item should have been removed');
+        if($hasFavorited == true) {
+            throw new Exception('Person has favorited item with sku');
         }
     }
     /**
@@ -184,27 +170,14 @@ class FeatureContext implements Context
     public function attemptsToRemoveAFavoritedFoodItemWithTheSku($firstName, $itemSku)
     {
         $person = $this->people[$firstName];
-        $favoritedItems = $person->getFavoriteItems();
+        $itemToRemove = $this->foodItems[$itemSku];
 
-        if (array_key_exists($itemSku, $favoritedItems) == true) {
-            throw new Exception("Cannot remove a favorite when no favorites have been added!");
+        try {
+            $person->removeFavoriteItems($itemToRemove);
+        } catch (Exception $exception) {
+            //Do Nothing
         }
+
     }
 
-    /**
-     * @Then :firstName should still have no favorited food items with the sku :itemSku
-     */
-    public function shouldStillHaveNoFavoritedFoodItemsWithTheSku($firstName, $itemSku)
-    {
-        $person = $this->people[$firstName];
-        $favoritedItems = $person->getFavoriteItems();
-
-        if (array_key_exists($itemSku, $favoritedItems) == true) {
-            throw new Exception("No food items should exist");
-        }
-    }
 }
-
-
-
-

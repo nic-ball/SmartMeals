@@ -14,7 +14,7 @@ Feature: Favoriting a food item
     And there is a food item with the sku 357937
     And "Nic" has no favorited items
     When "Nic" favorites an item with sku 357937
-    Then "Nic" should have favorited the item with sku 357937
+    Then "Nic" should have favorited food item with sku 357937
 
   Scenario: Favoriting duplicate food items
     Given there is a person called "Jim"
@@ -39,6 +39,7 @@ Feature: Favoriting a food item
 
   Scenario: Attempting to remove an item that has not been favorited
     Given there is a person called "Ron"
+    And there is a food item with the sku 111111111
     And "Ron" has no favorited items
     When "Ron" attempts to remove a favorited food item with the sku 111111111
-    Then "Ron" should still have no favorited food items with the sku 111111111
+    Then "Ron" should not have a favorited item with sku 111111111
