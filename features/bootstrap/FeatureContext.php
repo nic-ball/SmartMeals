@@ -12,7 +12,6 @@ class FeatureContext implements Context
 {
     private $person;
     private $foodItem;
-    //private $favoritedItems;
 
     /** @var Person[] */
     private $people = [];
