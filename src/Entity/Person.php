@@ -1,21 +1,28 @@
 <?php
-declare(strict_types=1);
 
-namespace NicBall\PersonService\Entity;
+namespace WorkSpace\PersonService\Entity;
 
-use PhpSpec\Exception\Exception;
-
-class Person
+final class Person
 {
     private $firstName;
     private $lastName;
     private $dob;
     private $height;
     private $eyeColour;
-    private $favouriteFoods;
     private $assignGender;
+    private $favoritedItems = [];
 
-    public function __construct(string $firstName, string $lastName, \DateTime $dob, string $height, string $eyeColour, string $assignGender)
+    /**
+     * Person constructor.
+     * @param string $firstName
+     * @param string $lastName
+     * @param DateTime $dob
+     * @param string $height
+     * @param string $eyeColour
+     * @param string $assignGender
+     * @param $favoritedItems
+     */
+    public function __construct(string $firstName, string $lastName, \DateTime $dob, string $height, string $eyeColour, string $assignGender, $favoritedItems)
     {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -23,75 +30,34 @@ class Person
         $this->height = $height;
         $this->eyeColour = $eyeColour;
         $this->assignGender = $assignGender;
+        $this->favoritedItems[] = $favoritedItems;
     }
 
-    public function getFirstName(): string
+    public function favoriteItem(FoodItem $foodItemToFavorite)
     {
-        return $this->firstName;
-    }
-
-    public function getLastName(): string
-    {
-        return $this->lastName;
-    }
-
-
-    public function getDOB(): \DateTime
-    {
-        return $this->dob;
-    }
-
-    public function getHeight(): string
-    {
-        return $this->height;
-    }
-
-    public function getEyeColour(): string
-    {
-        return $this->eyeColour;
-    }
-
-    public function capitalEyeColour(string $eyeColour)
-    {
-        $validColours = ["Blue", "Green", "Brown"];
-        $capitalEyeColour = ucwords(strtolower($eyeColour));
-
-        // Check user input is valid
-        if (!in_array($capitalEyeColour, $validColours)) {
-            // Invalid colour
-            throw new Exception('Invalid Selection...');
-        } else {
-            $this->eyeColour = $capitalEyeColour;
+        if ($this->hasFavorited($foodItemToFavorite))
+        {
+            throw new \Exception("Item has already been favorited");
         }
+        $this->favoritedItems[$foodItemToFavorite->getItemSku()] = $foodItemToFavorite;
     }
 
-    public function capitalGender(string $assignGender)
+    public function removeFavoriteItems(FoodItem $foodItemToRemove)
     {
-        $validGenders = ["Male", "Female", "M", "F"];
-        $capitalGender = ucwords(strtolower($assignGender));
+        if (!$this->hasFavorited($foodItemToRemove))
 
-        // Check input is valid
-        if (!in_array($capitalGender, $validGenders)) {
-            // Invalid Genders
-            throw new Exception('That is an Invalid input...');
-        } else {
-            $this->assignGender = $capitalGender;
+        {
+            throw new \Exception('Cannot remove an item that has not been favorited');
         }
+        unset($this->favoritedItems[$foodItemToRemove->getItemSku()]);
     }
 
-    public function getGender(): string
+    public function hasFavorited(FoodItem $foodItemToCheck)
     {
-        return $this->assignGender;
-    }
-
-    public function getFavouriteFoods()
-    {
-        return $this->favouriteFoods;
-    }
-
-    public function addFavouriteFoods($addFavouriteFoods)
-    {
-        $this->addFavouriteFoods[] = $addFavouriteFoods;
+        if (array_key_exists($foodItemToCheck->getItemSku(), $this->favoritedItems) == true) {
+            return true;
+        }
+        return false;
     }
 
 }
