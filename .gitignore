@@ -1,7 +1,10 @@
 
 #IDE Settings
-*.idea/*
+.idea
 
 #Dependencies
-*vendor/*
 
+
+composer.phar
+composer.lock
+/vendor/

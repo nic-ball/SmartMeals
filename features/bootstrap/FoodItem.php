@@ -49,5 +49,4 @@ class FoodItem
         return $this->itemSku;
     }
 
-
 }
