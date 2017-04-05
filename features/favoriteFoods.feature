@@ -23,13 +23,6 @@ Feature: Favoriting a food item
     When "Jim" attempts to favorite the food item with the sku 111111111
     Then "Jim" should have favorited food item with sku 111111111
 
-  Scenario: Favoriting non-food items
-    Given there is a person called "Andy"
-    And there is a non-food item with the sku 222222222
-    And "Andy" has no favorited items
-    When "Andy" attempts to favorite a non-food item with the sku 222222222
-    Then "Andy" should not have a favorited item with the sku 222222222
-
   Scenario: Remove Favorited food item
     Given there is a person called "Corey"
     And there is a food item with the sku 111111111

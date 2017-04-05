@@ -46,7 +46,7 @@ class FeatureContext implements Context
      */
     public function someoneHasNoFavoritedItems($firstName)
     {
-        //$this->favoritedItems = $favoritedItems;
+
     }
 
     /**
@@ -97,39 +97,30 @@ class FeatureContext implements Context
             throw new Exception('Person has not favorited item with sku');
         }
     }
-//    /**
-//     * @Given there is a non-food item with the sku :nonFoodSku
-//     */
-//    public function thereIsANonFoodItemWithTheSku(int $nonFoodSku)
-//    {
-//        $this->nonFoodItem[$nonFoodSku] = new NonFoodItem("Bleach", "Cleans floors", 2, $nonFoodSku);
-//    }
-//
-//    /**
-//     * @Given :firstName has favorited no items
-//     */
-//    public function hasFavoritedNoItems($firstName)
-//    {
-//        //No items favorited
-//    }
-//
-//    /**
-//     * @When :firstName attempts to favorite a non-food item with the sku :nonFoodSku
-//     */
-//    public function attemptsToFavoriteANonFoodItemWithTheSku($firstName, $nonFoodSku)
-//    {
-////        $person = $this->people[$firstName];
-////        $nonFoodItem = $this->nonFoodItem[$nonFoodSku];
-////        $person->
-//    }
-//
-//    /**
-//     * @Then :arg1 should have :arg2 favorited items
-//     */
-//    public function shouldHaveFavoritedItems($arg1, $arg2)
-//    {
-//        throw new PendingException();
-//    }
+
+    /**
+     * @Given there is a non-food item with the sku :itemSku
+     */
+    public function thereIsANonFoodItemWithTheSku($itemSku)
+    {
+        $this->foodItems[$itemSku] = "";
+    }
+
+    /**
+     * @When :firstName attempts to favorite a non-food item with the sku :itemSku
+     */
+    public function someoneAttemptsToFavoriteANonFoodItemWithTheSku($firstName, $itemSku)
+    {
+        $person = $this->people[$firstName];
+        //$nonFood = $this->nonFoodItems;
+
+        try {
+            $person->favoriteItem("");
+        } catch (TypeError $error) {
+            // Do nothing
+        }
+    }
+
     /**
      * @Given :firstName has favorited item with sku :itemSku
      */
@@ -177,7 +168,6 @@ class FeatureContext implements Context
         } catch (Exception $exception) {
             //Do Nothing
         }
-
     }
 
 }
