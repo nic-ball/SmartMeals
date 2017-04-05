@@ -4,6 +4,8 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use WorkSpace\PersonService\Entity\Person;
+use WorkSpace\PersonService\Entity\FoodItem;
 
 /**
  * Defines application features from the specific context.

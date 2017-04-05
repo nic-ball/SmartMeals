@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace WorkSpace\PersonService\Entity;
+
 class FoodItem
 {
     private $itemName;
