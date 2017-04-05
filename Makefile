@@ -10,4 +10,4 @@ test_phpcs:
 test_behat:
 	vendor/bin/behat
 
-test: test_phpspec test_phpcs
+test: test_phpspec test_behat test_phpcs

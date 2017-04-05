@@ -1,4 +1,4 @@
 suites:
     acme_suite:
-        namespace: NicBall\PersonService
-        psr4_prefix: NicBall\PersonService
+        namespace: WorkSpace\PersonService
+        psr4_prefix: WorkSpace\PersonService
