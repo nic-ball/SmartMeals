@@ -2,7 +2,7 @@
 
 namespace WorkSpace\PersonService\Entity;
 
-final class Person
+class Person
 {
     private $firstName;
     private $lastName;
@@ -14,16 +14,24 @@ final class Person
 
     /**
      * Person constructor.
-     * @param string $firstName
-     * @param string $lastName
-     * @param DateTime $dob
-     * @param string $height
-     * @param string $eyeColour
-     * @param string $assignGender
+     *
+     * @param string         $firstName
+     * @param string         $lastName
+     * @param DateTime       $dob
+     * @param string         $height
+     * @param string         $eyeColour
+     * @param string         $assignGender
      * @param $favoritedItems
      */
-    public function __construct(string $firstName, string $lastName, \DateTime $dob, string $height, string $eyeColour, string $assignGender, $favoritedItems)
-    {
+    public function __construct(
+        string $firstName,
+        string $lastName,
+        \DateTime $dob,
+        string $height,
+        string $eyeColour,
+        string $assignGender,
+        $favoritedItems
+    ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->dob = $dob;
@@ -35,8 +43,7 @@ final class Person
 
     public function favoriteItem(FoodItem $foodItemToFavorite)
     {
-        if ($this->hasFavorited($foodItemToFavorite))
-        {
+        if ($this->hasFavorited($foodItemToFavorite)) {
             throw new \Exception("Item has already been favorited");
         }
         $this->favoritedItems[$foodItemToFavorite->getItemSku()] = $foodItemToFavorite;
@@ -44,9 +51,7 @@ final class Person
 
     public function removeFavoriteItems(FoodItem $foodItemToRemove)
     {
-        if (!$this->hasFavorited($foodItemToRemove))
-
-        {
+        if (!$this->hasFavorited($foodItemToRemove)) {
             throw new \Exception('Cannot remove an item that has not been favorited');
         }
         unset($this->favoritedItems[$foodItemToRemove->getItemSku()]);
@@ -59,5 +64,4 @@ final class Person
         }
         return false;
     }
-
 }
