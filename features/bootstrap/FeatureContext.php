@@ -78,12 +78,7 @@ class FeatureContext implements Context
     {
         $customer = $this->customers[$firstName];
         $meal = $this->meals[$menuNumber];
-
-        try {
-            $customer->hasStarred($meal);
-        } catch (Exception $exception) {
-            // Do Nothing
-        }
+        $customer->starredMeals($meal);
     }
 
     /**
@@ -107,16 +102,22 @@ class FeatureContext implements Context
     public function someoneUnstarsTheMealWithTheMenuNumber($firstName, $menuNumber)
     {
         $customer = $this->customers[$firstName];
-        $meal = $this->meals[$menuNumber];
-        $customer->starredMeals($meal);
-
         $mealToCheck = $this->meals[$menuNumber];
-        $hasStarred = $customer->hasStarred($mealToCheck);
+        $customer->removeStarredMeals($mealToCheck);
+    }
 
-        if ($hasStarred == true) {
+    /**
+     * @When :firstName attempts to unstars the meal with the menu number :menuNumber
+     */
+    public function attemptsToUnstarsTheMealWithTheMenuNumber($firstName, $menuNumber)
+    {
+        $customer = $this->customers[$firstName];
+        $mealToCheck = $this->meals[$menuNumber];
+
+        try {
             $customer->removeStarredMeals($mealToCheck);
-        } else {
-            throw new \Exception('Meal has not yet been starred');
+        } catch (Exception $exception) {
+            // Do Nothing
         }
     }
 
@@ -130,7 +131,8 @@ class FeatureContext implements Context
         $hasStarred = $customer->hasStarred($mealToCheck);
 
         if ($hasStarred == true) {
-            throw new Exception(('Customer has starred a meal'));
+            throw new \Exception('Customer has starred a meal');
         }
     }
+
 }

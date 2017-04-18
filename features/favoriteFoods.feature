@@ -29,9 +29,9 @@ Feature: Starring a meal from the menu
     When "Corey" unstars the meal with the menu number 1
     Then "Corey" should not have a starred meal with the menu number 1
 
-  Scenario: Attempting to remove a meal that has not been starred
+  Scenario: Attempting to unstar a meal that has not been starred
     Given there is a customer called "Ron"
     And there is a meal with the menu number 1
     And "Ron" has no starred meals
-    When "Ron" unstars the meal with the menu number 1
+    When "Ron" attempts to unstars the meal with the menu number 1
     Then "Ron" should not have a starred meal with the menu number 1
