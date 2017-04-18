@@ -1,38 +1,37 @@
-Feature: Favoriting a food item
-  In order to add and remove favorite food items
-  As a Person
-  I need to be able to save and delete food items
+Feature: Starring a meal from the menu
+  In order to star and unstar meals from the menu
+  As a Customer
+  I need to be able to save and delete meals
 
   Rules:
-  - Food items should be allowed to favorited
-  - Duplicate food items should not favorited
-  - Non-food items should not be favorited
-  - Favorited items should be removable
+  - Meals should be allowed to starred
+  - Duplicate meals should not starred
+  - Starred items should be removable
 
-  Scenario: Favoriting food item
-    Given there is a person called "Nic"
-    And there is a food item with the sku 357937
-    And "Nic" has no favorited items
-    When "Nic" favorites an item with sku 357937
-    Then "Nic" should have favorited food item with sku 357937
+  Scenario: Starring a meal
+    Given there is a customer called "Nic"
+    And there is a meal with the menu number 12
+    And "Nic" has no starred meals
+    When "Nic" stars a meal with the menu number 12
+    Then "Nic" should have a starred meal with the menu number 12
 
-  Scenario: Favoriting duplicate food items
-    Given there is a person called "Jim"
-    And there is a food item with the sku 111111111
-    And "Jim" has favorited a food item with sku 111111111
-    When "Jim" attempts to favorite the food item with the sku 111111111
-    Then "Jim" should have favorited food item with sku 111111111
+  Scenario: Starring duplicate meals
+    Given there is a customer called "Jim"
+    And there is a meal with the menu number 1
+    And "Jim" has starred a meal with the menu number 1
+    When "Jim" attempts to star the meal with the menu number 1
+    Then "Jim" should have a starred meal with the menu number 1
 
-  Scenario: Remove Favorited food item
-    Given there is a person called "Corey"
-    And there is a food item with the sku 111111111
-    And "Corey" has favorited item with sku 111111111
-    When "Corey" removes the favorited food item with the sku 111111111
-    Then "Corey" should not have a favorited item with sku 111111111
+  Scenario: Remove Starred meal
+    Given there is a customer called "Corey"
+    And there is a meal with the menu number 1
+    And "Corey" has starred a meal with the menu number 1
+    When "Corey" unstars the meal with the menu number 1
+    Then "Corey" should not have a starred meal with the menu number 1
 
-  Scenario: Attempting to remove an item that has not been favorited
-    Given there is a person called "Ron"
-    And there is a food item with the sku 111111111
-    And "Ron" has no favorited items
-    When "Ron" attempts to remove a favorited food item with the sku 111111111
-    Then "Ron" should not have a favorited item with sku 111111111
+  Scenario: Attempting to remove a meal that has not been starred
+    Given there is a customer called "Ron"
+    And there is a meal with the menu number 1
+    And "Ron" has no starred meals
+    When "Ron" unstars the meal with the menu number 1
+    Then "Ron" should not have a starred meal with the menu number 1

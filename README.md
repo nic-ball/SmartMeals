@@ -12,7 +12,7 @@ Tasks:
      - DB Class (& using an Interface?)
      - Get this all working as a RESTful service over HTTP
      
-     
+    
      Things to read up on/think about:
      
      - Class Inheritance and Interfaces
