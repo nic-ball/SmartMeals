@@ -117,7 +117,7 @@ class FeatureContext implements Context
         try {
             $customer->removeStarredMeals($mealToCheck);
         } catch (Exception $exception) {
-            // Do Nothing
+            echo 'Cannot unstar a meal that has not been starred';
         }
     }
 
