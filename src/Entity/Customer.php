@@ -6,44 +6,44 @@ class Customer
 {
     private $firstName;
     private $email;
-    private $starredMeals = [];
+    private $starMeal = [];
 
     /**
      * Person constructor.
      *
      * @param string         $firstName
      * @param string         $email
-     * @param $favoritedMeals
+     * @param $starMeal
      */
     public function __construct(
         string $firstName,
         string $email,
-        $starredMeals
+        $starMeal
     ) {
         $this->firstName = $firstName;
         $this->email = $email;
-        $this->starredMeals[] = $starredMeals;
+        $this->starMeal[] = $starMeal;
     }
 
-    public function starredMeals(Meal $mealToStar)
+    public function starMeal(Meal $mealToStar)
     {
-        if ($this->hasStarred($mealToStar)) {
+        if ($this->hasStar($mealToStar)) {
             throw new \Exception("Meal has already been starred");
         }
-        $this->starredMeals[$mealToStar->getMenuNumber()] = $mealToStar;
+        $this->starMeal[$mealToStar->getMenuNumber()] = $mealToStar;
     }
 
-    public function removeStarredMeals(Meal $mealToRemove)
+    public function unStarMeal(Meal $mealToRemove)
     {
-        if (!$this->hasStarred($mealToRemove)) {
+        if (!$this->hasStar($mealToRemove)) {
             throw new \Exception('Cannot unstar a meal that has not been starred');
         }
-        unset($this->starredMeals[$mealToRemove->getMenuNumber()]);
+        unset($this->starMeal[$mealToRemove->getMenuNumber()]);
     }
 
-    public function hasStarred(Meal $mealToCheck)
+    public function hasStar(Meal $mealToCheck)
     {
-        if (array_key_exists($mealToCheck->getMenuNumber(), $this->starredMeals) == true) {
+        if (array_key_exists($mealToCheck->getMenuNumber(), $this->starMeal) == true) {
             return true;
         }
         return false;
