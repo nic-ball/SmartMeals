@@ -20,31 +20,31 @@ class CustomerSpec extends ObjectBehavior
         $this->beConstructedWith('','', '', null);
     }
 
-    function it_stars_meals()
+    function it_stars_meal()
     {
         $meal = new Meal('Butternut squash Ravioli', 595, 35, 40, 12, 1);
-        $this->starredMeals($meal);
-        $this->shouldHaveStarred($meal);
+        $this->starMeal($meal);
+        $this->hasStar($meal);
     }
 
     function it_does_not_star_duplicate_meals()
     {
         $meal = new Meal('Butternut squash Ravioli', 595, 35, 40, 12, 1);
-        $this->starredMeals($meal);
-        $this->shouldThrow(new \Exception('Meal has already been starred'))->during('starredMeals', [$meal]);
+        $this->starMeal($meal);
+        $this->shouldThrow(new \Exception('Meal has already been starred'))->during('starMeal', [$meal]);
     }
 
-    function it_removes_a_starred_meal()
+    function it_unstars_meal()
     {
         $meal = new Meal('Butternut squash Ravioli', 595, 35, 40, 12, 1);
-        $this->starredMeals($meal);
-        $this->shouldHaveStarred($meal);
-        $this->removeStarredMeals($meal);
+        $this->starMeal($meal);
+        $this->hasStar($meal);
+        $this->unStarMeal($meal);
     }
-    function it_does_not_allow_starred_meals_to_be_removed_if_nothing_starred()
+    function it_does_not_unstar_meal_if_not_star_meal()
     {
         $meal = new Meal('Mac \'n Cheese', 499, 23, 56, 20, 12);
-        $this->shouldNotHaveStarred($meal);
-        $this->shouldThrow(new \Exception("Cannot unstar a meal that has not been starred"))->during('removeStarredMeals', [$meal]);
+        $this->shouldNotHaveStar($meal);
+        $this->shouldThrow(new \Exception("Cannot unstar a meal that has not been starred"))->during('unStarMeal', [$meal]);
     }
 }

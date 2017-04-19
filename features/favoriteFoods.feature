@@ -6,16 +6,16 @@ Feature: Starring a meal from the menu
   Rules:
   - Meals should be allowed to starred
   - Duplicate meals should not starred
-  - Starred items should be removable
+  - Starred meals should be removable
 
-  Scenario: Starring a meal
+  Scenario: Star a meal
     Given there is a customer called "Nic"
     And there is a meal with the menu number 12
     And "Nic" has no starred meals
     When "Nic" stars a meal with the menu number 12
     Then "Nic" should have a starred meal with the menu number 12
 
-  Scenario: Starring duplicate meals
+  Scenario: Star duplicate meals
     Given there is a customer called "Jim"
     And there is a meal with the menu number 1
     And "Jim" has starred a meal with the menu number 1
@@ -33,5 +33,5 @@ Feature: Starring a meal from the menu
     Given there is a customer called "Ron"
     And there is a meal with the menu number 1
     And "Ron" has no starred meals
-    When "Ron" attempts to unstars the meal with the menu number 1
+    When "Ron" attempts to unstar meal with the menu number 1
     Then "Ron" should not have a starred meal with the menu number 1

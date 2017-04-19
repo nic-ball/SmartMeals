@@ -57,7 +57,7 @@ class FeatureContext implements Context
     {
         $customer = $this->customers[$firstName];
         $meal = $this->meals[$menuNumber];
-        $customer->starredMeals($meal);
+        $customer->starMeal($meal);
 
     }
 
@@ -68,7 +68,7 @@ class FeatureContext implements Context
     {
         $customer = $this->customers[$firstName];
         $meal = $this->meals[$menuNumber];
-        $customer->hasStarred($meal);
+        $customer->hasStar($meal);
     }
 
     /**
@@ -78,7 +78,7 @@ class FeatureContext implements Context
     {
         $customer = $this->customers[$firstName];
         $meal = $this->meals[$menuNumber];
-        $customer->starredMeals($meal);
+        $customer->starMeal($meal);
     }
 
     /**
@@ -90,7 +90,7 @@ class FeatureContext implements Context
         $meal = $this->meals[$menuNumber];
 
         try {
-            $customer->starredMeals($meal);
+            $customer->starMeal($meal);
         } catch (Exception $exception) {
             // Do Nothing
         }
@@ -103,19 +103,19 @@ class FeatureContext implements Context
     {
         $customer = $this->customers[$firstName];
         $mealToCheck = $this->meals[$menuNumber];
-        $customer->removeStarredMeals($mealToCheck);
+        $customer->unStarMeal($mealToCheck);
     }
 
     /**
-     * @When :firstName attempts to unstars the meal with the menu number :menuNumber
+     * @When :firstName attempts to unstar meal with the menu number :menuNumber
      */
-    public function attemptsToUnstarsTheMealWithTheMenuNumber($firstName, $menuNumber)
+    public function someoneAttemptsToUnstarMealWithTheMenuNumber($firstName, $menuNumber)
     {
         $customer = $this->customers[$firstName];
         $mealToCheck = $this->meals[$menuNumber];
 
         try {
-            $customer->removeStarredMeals($mealToCheck);
+            $customer->unStarMeal($mealToCheck);
         } catch (Exception $exception) {
             echo 'Cannot unstar a meal that has not been starred';
         }
@@ -128,9 +128,9 @@ class FeatureContext implements Context
     {
         $customer = $this->customers[$firstName];
         $mealToCheck = $this->meals[$menuNumber];
-        $hasStarred = $customer->hasStarred($mealToCheck);
+        $hasStar = $customer->hasStar($mealToCheck);
 
-        if ($hasStarred == true) {
+        if ($hasStar == true) {
             throw new \Exception('Customer has starred a meal');
         }
     }
