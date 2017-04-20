@@ -4,15 +4,15 @@ namespace WorkSpace\PersonService\Entity;
 
 class Customer
 {
-    private $firstName;
-    private $email;
-    private $starMeal = [];
+    protected $firstName;
+    protected $email;
+    protected $starMeal = [];
 
     /**
      * Person constructor.
      *
-     * @param string         $firstName
-     * @param string         $email
+     * @param string   $firstName
+     * @param string   $email
      * @param $starMeal
      */
     public function __construct(
