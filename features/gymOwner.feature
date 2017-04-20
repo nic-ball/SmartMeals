@@ -1,0 +1,89 @@
+Feature: Gym owners can love or loathe meals from the menu
+  In order to love or loathe meals
+  As a gym owner
+  I need to be able to add/remove meals to/from the love/loathe it list
+  I need to be able to star love it meals
+  And I need to not receive samples of meals that are on my love/loathe it lists
+
+  Rules:
+  - A gym owner should be signed up
+  - Meals can be loved
+  - Love it meals can be starred
+  - Meals can be loathed
+  - Loathed meals cannot be starred
+  - Meals added to either love it or loathe must not be sent to gym owner
+
+  Scenario: Gym owner loves meal
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 17
+  And "Keith" has no love it meals with the menu number 17
+  When "Keith" loves a meal with the menu number 17
+  Then "Keith" has a love it meal with the menu number 17
+
+  Scenario: Gym owner attempts to love a previously loved meal
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 17
+  And "Keith" has a love it meal with the menu number 17
+  When "Keith" attempts to love the meal with the menu number 17
+  Then "Keith" should still have a love it meal with the menu number 17
+
+  Scenario: Gym owner stars a Loved meal
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 17
+  And "Keith" has a love it meal with the menu number 17
+  When "Keith" stars the meal with menu number 17
+  Then "Keith" should have a starred love it meal with the menu number 17
+
+  Scenario: Gym owner unstars a meal
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 17
+  And "Keith" has a love it meal with the menu number 17
+  And "Keith" has starred a loved meal with the menu number 17
+  When "Keith" unstars the meal with menu number 17
+  Then "Keith" should not have starred a loved meal with the menu number 17
+
+  Scenario: Gym owner unloves a meal
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 17
+  And "Keith" has a love it meal with the menu number 17
+  When "Keith" unloves the meal with the menu number 17
+  Then "Keith" should not have a love it meal with the menu number 17
+
+  Scenario: Gym owner Loathes a meal
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 34
+  And "Keith" has no loath it meals with the menu number 34
+  When "Keith" attempts to loathe the meal with the menu number 34
+  Then "Keith" should have a loathed meal with the menu number 34
+
+  Scenario: Gym owner attempts to loathe a previously loathed meal
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 34
+  And "Keith" has a loathed meal with the menu number 34
+  When "Keith" attempts to loathe the meal with the menu number 34
+  Then "Keith" should have a loathed meal with the menu number 34
+
+  Scenario: Gym owner attempts to star loathed meal
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 34
+  When "Keith" attempts to star a loathed meal with the menu number 34
+  Then "Keith" should not have a starred loathe it meal with the menu number 34
+
+  Scenario: Gym owner unloathes a meal
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 34
+  And "Keith" has a loathed meal with the menu number 34
+  When "Keith" unloathes the meal with the menu number 34
+  Then "Keith" should not have a loathed meal with the menu number 34
+
+  Scenario: Sending a meal sample to a gym owner
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 59
+  And menu number 59 is not in "Keith" love it or loathe it list
+  Then "Keith" should be sent a sample of the meal with menu number 59
+
+  Scenario: Trying to send a sample that a gym owner has already received
+  Given there is a gym owner called "Keith"
+  And there is a meal with the menu number 86
+  And menu number 86 has not been sent to "Keith" before
+  Then "Keith" should not be sent a sample of menu number 86
