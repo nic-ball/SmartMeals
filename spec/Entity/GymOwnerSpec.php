@@ -2,6 +2,7 @@
 
 namespace spec\WorkSpace\PersonService\Entity;
 
+use PhpSpec\Exception\Exception;
 use WorkSpace\PersonService\Entity\Meal;
 use PhpSpec\ObjectBehavior;
 use WorkSpace\PersonService\Entity\GymOwner;
@@ -56,6 +57,45 @@ class GymOwnerSpec extends ObjectBehavior
     {
         $meal = new Meal('Clam Bake', 595, 35, 40, 12, 86);
         $this->unLoatheMeal($meal);
+    }
+
+    function it_stars_loved_meal()
+    {
+        $meal = new Meal('Butternut squash Ravioli', 595, 35, 40, 12, 1);
+        $this->starMeal($meal);
+    }
+
+    function it_unstars_favorite_meal()
+    {
+        $meal = new Meal('Butternut squash Ravioli', 595, 35, 40, 12, 1);
+        $this->unStarMeal($meal);
+    }
+
+    function it_should_not_star_duplicate_loved_meals()
+    {
+        $meal = new Meal('Butternut squash Ravioli', 595, 35, 40, 12, 1);
+        $this->starMeal($meal);
+        $this->shouldThrow(new \Exception('Cannot star a meal that is not loved'))->during('starMeal', [$meal]);
+    }
+
+    function it_should_not_star_loathed_meals()
+    {
+        $meal = new Meal('Butternut squash Ravioli', 595, 35, 40, 12, 1);
+        $this->starMeal($meal);
+        $this->shouldThrow(new Exception('Cannot star a meal that is not loved'))->during('starMeal', [$meal]);
+    }
+
+    function it_allows_samples_to_be_sent()
+    {
+        $meal = new Meal('Butternut squash Ravioli', 595, 35, 40, 12, 1);
+        $this->sendSample($meal);
+    }
+
+    function it_does_not_allow_duplicate_samples_to_be_sent()
+    {
+        $meal = new Meal('Butternut squash Ravioli', 595, 35, 40, 12, 1);
+        $this->sendSample($meal);
+        $this->shouldThrow(new Exception('Cannot send repeat samples'))->during('sendSample', [$meal]);
     }
 
 
