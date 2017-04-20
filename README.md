@@ -1,22 +1,23 @@
-# personService
+# smartMeals
 
-[![Build Status](https://travis-ci.org/nunchuck/personService.svg?branch=master)](https://travis-ci.org/nunchuck/personService)
+[![Build Status](https://travis-ci.org/nunchuck/SmartMeals.svg?branch=master)](https://travis-ci.org/nunchuck/SmartMeals)
 
-<p>A service that describes a person and allows them to add and remove their favorite foods.</p>
+<p>An application that helps busy workers quickly collect a healthy nutritious meal after a lunchtime gym workout.</p>
+<p>Either at the gym or at the SmartMeals City Centre location.</p>
 
 Tasks:
      
-     - Complete Person class as above
-     - Complete Employee class which inherits from Person
-     - Get Person and Employee stored/retrieved in a DB (create DB first)
+     
+     - Complete Customer and Gym Owner classes, specs and all tests
+     - Get Customer and Gym Owner stored/retrieved in a DB (create DB first) Redis/MongoDB
      - DB Class (& using an Interface?)
      - Get this all working as a RESTful service over HTTP
      
     
      Things to read up on/think about:
      
-     - Class Inheritance and Interfaces
-     - Database design for Person and Employee
+     - Interfaces
+     - Database design for Customer and Gym Owner
      - Microservices
      - REST/RESTful services (how you should interact with your service)
      
