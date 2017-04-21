@@ -2,7 +2,7 @@
 
 namespace WorkSpace\PersonService\Domain;
 
-interface GymOwnerInterface
+interface GymOwnerRepositoryInterface
 {
     public function save(GymOwner $gymOwner);
     public function findByEmail(GymOwner $email);

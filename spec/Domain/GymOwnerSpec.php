@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\WorkSpace\PersonService\Entity;
+namespace spec\WorkSpace\PersonService\Domain;
 
 use PhpSpec\Exception\Exception;
 use WorkSpace\PersonService\Domain\Meal;
