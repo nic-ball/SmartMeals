@@ -1,10 +1,10 @@
 <?php
 
-namespace spec\WorkSpace\PersonService\Entity;
+namespace spec\WorkSpace\PersonService\Domain;
 
 use PhpSpec\Exception\Exception;
-use WorkSpace\PersonService\Entity\Meal;
-use WorkSpace\PersonService\Entity\Customer;
+use WorkSpace\PersonService\Domain\Meal;
+use WorkSpace\PersonService\Domain\Customer;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

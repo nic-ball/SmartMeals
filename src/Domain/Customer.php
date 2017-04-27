@@ -1,6 +1,6 @@
 <?php
 
-namespace WorkSpace\PersonService\Entity;
+namespace WorkSpace\PersonService\Domain;
 
 class Customer
 {

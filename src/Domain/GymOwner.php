@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace WorkSpace\PersonService\Entity;
+namespace WorkSpace\PersonService\Domain;
 
 use PhpSpec\Exception\Exception;
 

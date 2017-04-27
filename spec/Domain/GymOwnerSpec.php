@@ -1,11 +1,11 @@
 <?php
 
-namespace spec\WorkSpace\PersonService\Entity;
+namespace spec\WorkSpace\PersonService\Domain;
 
 use PhpSpec\Exception\Exception;
-use WorkSpace\PersonService\Entity\Meal;
+use WorkSpace\PersonService\Domain\Meal;
 use PhpSpec\ObjectBehavior;
-use WorkSpace\PersonService\Entity\GymOwner;
+use WorkSpace\PersonService\Domain\GymOwner;
 
 class GymOwnerSpec extends ObjectBehavior
 {

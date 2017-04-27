@@ -4,9 +4,9 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use WorkSpace\PersonService\Entity\Customer;
-use WorkSpace\PersonService\Entity\Meal;
-use WorkSpace\PersonService\Entity\GymOwner;
+use WorkSpace\PersonService\Domain\Customer;
+use WorkSpace\PersonService\Domain\Meal;
+use WorkSpace\PersonService\Domain\GymOwner;
 
 /**
  * Defines application features from the specific context.
