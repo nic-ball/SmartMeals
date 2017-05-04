@@ -17,6 +17,7 @@ class FeatureContext implements Context
     /** @var Customer[] */
     private $customers = [];
 
+
     /** @var Meal[] */
     private $meals = [];
 
@@ -29,14 +30,32 @@ class FeatureContext implements Context
 
     }
 
-    /**
-     * @Given there is a customer called :firstName
+    /*
+     *    @BeforeScenario
      */
-    public function thereIsACustomerCalled(string $firstName)
+    public function setUp()
     {
-        //this->person = new Person($firstName, 'Baloo', new DateTime(1981-06-23), "5'7", 'Blue', 'M', ['']);
-        $this->customers[$firstName] = new Customer($firstName, 'nunchuckbaloo@gmail.com', ['']);
+        $this->customers = [];
+        $this->meals = [];
+        $this->owners = [];
     }
+
+    /*
+     * @AfterScenario
+     */
+    public function tearDown()
+    {
+
+    }
+
+    /**
+     * @Given there is a customer with the email address :email
+     */
+    public function thereIsACustomerWithTheEmailAddress(String $email)
+    {
+        $this->customers[$email] = new Customer('Nic', $email, ['']);
+    }
+    
 
     /**
      * @Given there is a meal with the menu number :menuNumber
@@ -47,50 +66,50 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Given :firstName has no starred meals
+     * @Given :email has no starred meals
      */
-    public function someoneHasNoStarredMeals($firstName)
+    public function someoneHasNoStarredMeals($email)
     {
 
     }
 
     /**
-     * @When :firstName stars a meal with the menu number :menuNumber
+     * @When :email stars a meal with the menu number :menuNumber
      */
-    public function someoneStarsAMealWithTheMenuNumber($firstName, $menuNumber)
+    public function someoneStarsAMealWithTheMenuNumber($email, $menuNumber)
     {
-        $customer = $this->customers[$firstName];
+        $customer = $this->customers[$email];
         $meal = $this->meals[$menuNumber];
         $customer->starMeal($meal);
 
     }
 
     /**
-     * @Then :firstName should have a starred meal with the menu number :menuNumber
+     * @Then :email should have a starred meal with the menu number :menuNumber
      */
-    public function someoneShouldHaveAStarredMealWithTheMenuNumber($firstName, $menuNumber)
+    public function someoneShouldHaveAStarredMealWithTheMenuNumber($email, $menuNumber)
     {
-        $customer = $this->customers[$firstName];
+        $customer = $this->customers[$email];
         $meal = $this->meals[$menuNumber];
         $customer->hasStar($meal);
     }
 
     /**
-     * @Given :firstName has starred a meal with the menu number :menuNumber
+     * @Given :email has starred a meal with the menu number :menuNumber
      */
-    public function someoneHasStarredAMealWithTheMenuNumber($firstName, $menuNumber)
+    public function someoneHasStarredAMealWithTheMenuNumber($email, $menuNumber)
     {
-        $customer = $this->customers[$firstName];
+        $customer = $this->customers[$email];
         $meal = $this->meals[$menuNumber];
         $customer->starMeal($meal);
     }
 
     /**
-     * @When :firstName attempts to star the meal with the menu number :menuNumber
+     * @When :email attempts to star the meal with the menu number :menuNumber
      */
-    public function someoneAttemptsToStarTheMealWithTheMenuNumber($firstName, $menuNumber)
+    public function someoneAttemptsToStarTheMealWithTheMenuNumber($email, $menuNumber)
     {
-        $customer = $this->customers[$firstName];
+        $customer = $this->customers[$email];
         $meal = $this->meals[$menuNumber];
 
         try {
@@ -101,21 +120,21 @@ class FeatureContext implements Context
     }
 
     /**
-     * @When :firstName unstars the meal with the menu number :menuNumber
+     * @When :email unstars the meal with the menu number :menuNumber
      */
-    public function someoneUnstarsTheMealWithTheMenuNumber($firstName, $menuNumber)
+    public function someoneUnstarsTheMealWithTheMenuNumber($email, $menuNumber)
     {
-        $customer = $this->customers[$firstName];
+        $customer = $this->customers[$email];
         $mealToCheck = $this->meals[$menuNumber];
         $customer->unStarMeal($mealToCheck);
     }
 
     /**
-     * @When :firstName attempts to unstar meal with the menu number :menuNumber
+     * @When :email attempts to unstar meal with the menu number :menuNumber
      */
-    public function someoneAttemptsToUnstarMealWithTheMenuNumber($firstName, $menuNumber)
+    public function someoneAttemptsToUnstarMealWithTheMenuNumber($email, $menuNumber)
     {
-        $customer = $this->customers[$firstName];
+        $customer = $this->customers[$email];
         $mealToCheck = $this->meals[$menuNumber];
 
         try {
@@ -126,11 +145,11 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Then :firstName should not have a starred meal with the menu number :menuNumber
+     * @Then :email should not have a starred meal with the menu number :menuNumber
      */
-    public function someoneShouldNotHaveAStarredMealWithTheMenuNumber($firstName, $menuNumber)
+    public function someoneShouldNotHaveAStarredMealWithTheMenuNumber($email, $menuNumber)
     {
-        $customer = $this->customers[$firstName];
+        $customer = $this->customers[$email];
         $mealToCheck = $this->meals[$menuNumber];
         $hasStar = $customer->hasStar($mealToCheck);
 
@@ -139,49 +158,48 @@ class FeatureContext implements Context
         }
     }
 
-
     /**
-     * @Given there is a gym owner called :firstName
+     * @Given there is a gym owner with the email address :email
      */
-    public function thereIsAGymOwnerCalled(string $firstName)
+    public function thereIsAGymOwnerWithTheEmailAddress($email)
     {
-        $this->owners[$firstName] = new GymOwner($firstName, 'owner@thegym.com', 'Iron Heights', '123 some st, sometown, the world', [''], [''], ['']);
+        $this->owners[$email] = new GymOwner('Keith', $email, 'Iron Heights', '123 some st, sometown, the world', [''], [''], ['']);
     }
 
     /**
-     * @Given :firstName has no love it meals with the menu number :menuNumber
+     * @Given :email has no love it meals with the menu number :menuNumber
      */
-    public function someoneHasNoLoveItMealsWithTheMenuNumber($firstName, $menuNumber)
+    public function someoneHasNoLoveItMealsWithTheMenuNumber($email, $menuNumber)
     {
 
     }
 
     /**
-     * @When :firstName loves a meal with the menu number :menuNumber
+     * @When :email loves a meal with the menu number :menuNumber
      */
-    public function someoneLovesAMealWithTheMenuNumber($firstName, $menuNumber)
+    public function someoneLovesAMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $loveMeal = $this->meals[$menuNumber];
         $owner->loveMeal($loveMeal);
     }
 
     /**
-     * @Then :firstName has a love it meal with the menu number :menuNumber
+     * @Then :email has a love it meal with the menu number :menuNumber
      */
-    public function gymOwnerHasALoveItMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerHasALoveItMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $loveMeal = $this->meals[$menuNumber];
         $owner->hasLove($loveMeal);
     }
 
     /**
-     * @When :firstName attempts to love the meal with the menu number :menuNumber
+     * @When :email attempts to love the meal with the menu number :menuNumber
      */
-    public function gymOwnerAttemptsToLoveTheMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerAttemptsToLoveTheMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $loveMeal = $this->meals[$menuNumber];
 
         try {
@@ -192,32 +210,32 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Then :firstName should still have a love it meal with the menu number :menuNumber
+     * @Then :email should still have a love it meal with the menu number :menuNumber
      */
-    public function gymOwnerShouldStillHaveALoveItMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerShouldStillHaveALoveItMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $loveMealToCheck = $this->meals[$menuNumber];
         $owner->hasLove($loveMealToCheck);
     }
 
     /**
-     * @When :firstName stars the meal with menu number :menuNumber
+     * @When :email stars the meal with menu number :menuNumber
      */
-    public function gymOwnerStarsTheMealWithMenuNumber($firstName, $menuNumber)
+    public function gymOwnerStarsTheMealWithMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $mealToStar = $this->meals[$menuNumber];
         $owner->starMeal($mealToStar);
 
     }
 
     /**
-     * @Then :firstName should have a starred love it meal with the menu number :menuNumber
+     * @Then :email should have a starred love it meal with the menu number :menuNumber
      */
-    public function gymOwnerShouldHaveAStarredLoveItMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerShouldHaveAStarredLoveItMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $loveMealToStar = $this->meals[$menuNumber];
 
         $owner->hasStar($loveMealToStar);
@@ -225,11 +243,11 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Given :firstName has starred a loved meal with the menu number :menuNumber
+     * @Given :email has starred a loved meal with the menu number :menuNumber
      */
-    public function hasStarredALovedMealWithTheMenuNumber($firstName, $menuNumber)
+    public function hasStarredALovedMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $loveMealHasStar = $this->meals[$menuNumber];
 
         $owner->hasStar($loveMealHasStar);
@@ -237,21 +255,21 @@ class FeatureContext implements Context
     }
 
     /**
-     * @When :firstName unstars the meal with menu number :menuNumber
+     * @When :email unstars the meal with menu number :menuNumber
      */
-    public function gymOwnerUnstarsTheMealWithMenuNumber($firstName, $menuNumber)
+    public function gymOwnerUnstarsTheMealWithMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $loveMealToUnstar = $this->meals[$menuNumber];
         $owner->unStarMeal($loveMealToUnstar);
     }
 
     /**
-     * @Then :firstName should not have starred a loved meal with the menu number :menuNumber
+     * @Then :email should not have starred a loved meal with the menu number :menuNumber
      */
-    public function gymOwnerShouldNotHaveStarredALovedMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerShouldNotHaveStarredALovedMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $mealToCheck = $this->meals[$menuNumber];
         $hasStar = $owner->hasStar($mealToCheck);
 
@@ -261,21 +279,21 @@ class FeatureContext implements Context
     }
 
     /**
-     * @When :firstName unloves the meal with the menu number :menuNumber
+     * @When :email unloves the meal with the menu number :menuNumber
      */
-    public function gymOwnerUnlovesTheMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerUnlovesTheMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $loveMealToUnlove = $this->meals[$menuNumber];
         $owner->unLoveMeal($loveMealToUnlove);
     }
 
     /**
-     * @Then :firstName should not have a love it meal with the menu number :menuNumber
+     * @Then :email should not have a love it meal with the menu number :menuNumber
      */
-    public function gymOwnerShouldNotHaveALoveItMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerShouldNotHaveALoveItMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $mealToCheck = $this->meals[$menuNumber];
         $hasLove = $owner->hasLove($mealToCheck);
 
@@ -285,11 +303,11 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Given :firstName has no loath it meals with the menu number :menuNumber
+     * @Given :email has no loath it meals with the menu number :menuNumber
      */
-    public function gymOwnerHasNoLoathItMealsWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerHasNoLoathItMealsWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $mealToCheck = $this->meals[$menuNumber];
         $hasLoathed = $owner->hasLoathed($mealToCheck);
 
@@ -299,11 +317,11 @@ class FeatureContext implements Context
     }
 
     /**
-     * @When :firstName attempts to loathe the meal with the menu number :menuNumber
+     * @When :email attempts to loathe the meal with the menu number :menuNumber
      */
-    public function gymOwnerAttemptsToLoatheTheMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerAttemptsToLoatheTheMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $loatheMeal = $this->meals[$menuNumber];
 
         try {
@@ -314,11 +332,11 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Then :firstName should have a loathed meal with the menu number :menuNumber
+     * @Then :email should have a loathed meal with the menu number :menuNumber
      */
-    public function gymOwnerShouldHaveALoathedMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerShouldHaveALoathedMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $mealToCheck = $this->meals[$menuNumber];
         $hasLoathed = $owner->hasLoathed($mealToCheck);
 
@@ -328,21 +346,21 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Given :firstName has a loathed meal with the menu number :menuNumber
+     * @Given :email has a loathed meal with the menu number :menuNumber
      */
-    public function gymOwnerHasALoathedMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerHasALoathedMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $hasLoathed = $this->meals[$menuNumber];
         $owner->hasLoathed($hasLoathed);
     }
 
     /**
-     * @When :firstName attempts to star a loathed meal with the menu number :menuNumber
+     * @When :email attempts to star a loathed meal with the menu number :menuNumber
      */
-    public function gymOwnerAttemptsToStarALoathedMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerAttemptsToStarALoathedMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $starLoathed = $this->meals[$menuNumber];
 
         try {
@@ -353,11 +371,11 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Then :firstName should not have a starred loathe it meal with the menu number :menuNumber
+     * @Then :email should not have a starred loathe it meal with the menu number :menuNumber
      */
-    public function gymOwnerShouldNotHaveAStarredLoatheItMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerShouldNotHaveAStarredLoatheItMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $mealToCheck = $this->meals[$menuNumber];
         $loathedNotStarred = $owner->hasStar($mealToCheck);
 
@@ -368,11 +386,11 @@ class FeatureContext implements Context
     }
 
     /**
-     * @When :firstName unloathes the meal with the menu number :menuNumber
+     * @When :email unloathes the meal with the menu number :menuNumber
      */
-    public function gymOwnerUnloathesTheMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerUnloathesTheMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $unloatheMeal = $this->meals[$menuNumber];
 
         try {
@@ -383,11 +401,11 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Then :firstName should not have a loathed meal with the menu number :menuNumber
+     * @Then :email should not have a loathed meal with the menu number :menuNumber
      */
-    public function gymOwnerShouldNotHaveALoathedMealWithTheMenuNumber($firstName, $menuNumber)
+    public function gymOwnerShouldNotHaveALoathedMealWithTheMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $mealToCheck = $this->meals[$menuNumber];
         $hasLoathed = $owner->unLoatheMeal($mealToCheck);
 
@@ -397,11 +415,11 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Given menu number :menuNumber is not in :firstName love it or loathe it list
+     * @Given menu number :menuNumber is not in :email love it or loathe it list
      */
-    public function menuNumberIsNotInLoveItOrLoatheItList($firstName, $menuNumber)
+    public function menuNumberIsNotInLoveItOrLoatheItList($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $mealToCheck = $this->meals[$menuNumber];
 
         if($owner->hasLove($mealToCheck)) {
@@ -414,22 +432,22 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Then :firstName should be sent a sample of the meal with menu number :menuNumber
+     * @Then :email should be sent a sample of the meal with menu number :menuNumber
      */
-    public function gymOwnerShouldBeSentASampleOfTheMealWithMenuNumber($firstName, $menuNumber)
+    public function gymOwnerShouldBeSentASampleOfTheMealWithMenuNumber($email, $menuNumber)
     {
 
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $mealToSample = $this->meals[$menuNumber];
         $owner->sendSample($mealToSample);
     }
 
     /**
-     * @Given menu number :menuNumber has not been sent to :firstName before
+     * @Given menu number :menuNumber has not been sent to :email before
      */
-    public function menuNumberHasNotBeenSentToBefore($firstName, $menuNumber)
+    public function menuNumberHasNotBeenSentToBefore($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $mealSample = $this->meals[$menuNumber];
         $hasSample = $owner->hasSample($mealSample);
 
@@ -439,13 +457,118 @@ class FeatureContext implements Context
     }
 
     /**
-     * @Then :firstName should not be sent a sample of menu number :menuNumber
+     * @Then :email should not be sent a sample of menu number :menuNumber
      */
-    public function shouldNotBeSentASampleOfMenuNumber($firstName, $menuNumber)
+    public function shouldNotBeSentASampleOfMenuNumber($email, $menuNumber)
     {
-        $owner = $this->owners[$firstName];
+        $owner = $this->owners[$email];
         $noSample = $this->meals[$menuNumber];
         $owner->sendSample($noSample);
     }
 
+    /**
+     * @Given the customer has not signed up with the email address :email
+     */
+    public function theCustomerHasNotSignedUpWithTheEmailAddress($email)
+    {
+        $redis = new Redis();
+        $redis->connect('127.0.0.1', 6379);
+        $redis->set('customer', $email);
+        $redis->get('email');
+        if ($redis->exists($email) == true) {
+            throw new Exception('Email address has already been used to sign up');
+        }
+        $redis->set('customer', $email);
+        $redis->close();
+    }
+
+    /**
+     * @When the customer signs up with the email address :email
+     */
+    public function theCustomerSignsUpWithTheEmailAddress($email)
+    {
+        $redis = new Redis();
+        $redis->connect('127.0.0.1', 6379);
+        $redis->set('customer', $email);
+        $redis->close();
+    }
+
+    /**
+     * @Then the customer should be saved to the data store by the email address :email
+     */
+    public function theCustomerShouldBeSavedToTheDataStoreByTheEmailAddress($email)
+    {
+        $redis = new Redis();
+        $redis->connect('127.0.0.1');
+        $redis->get('email');
+        if ($redis->exists($email) == false) {
+            echo 'Welcome to SmartMeals';
+            $redis->close();
+        } else {
+            throw new \Exception('Something has gone wrong');
+        }
+        $redis->close();
+    }
+
+    /**
+     * @Given the customer has signed up with the email address :email
+     */
+    public function theCustomerHasSignedUpWithTheEmailAddress($email)
+    {
+        $redis = new Redis();
+        $redis->connect('127.0.0.1');
+        $redis->exists($email);
+        $redis->close();
+    }
+
+    /**
+     * @When the customer attempts to sign up again with the same email address :email
+     */
+    public function theCustomerAttemptsToSignUpAgainWithTheSameEmailAddress2($email)
+    {
+        $redis = new Redis();
+        $redis->connect('127.0.0.1');
+        $redis->set('customer', $email);
+        $redis->get('email');
+        if ($redis->exists($email) == true) {
+            throw new Exception('Email address has already been used to sign up');
+        }
+        $redis->close();
+    }
+
+    /**
+     * @Then the customer should still be signed up with the email address :email
+     */
+    public function theCustomerShouldStillBeSignedUpWithTheEmailAddress($email)
+    {
+        $redis = new Redis();
+        $redis->connect('127.0.0.1');
+        $redis->exists($email);
+        $custEmail = $redis->get($email);
+        echo 'You have already signed up with: ' . $custEmail;
+    }
+
+    /**
+     * @When the email address :email is searched for
+     */
+    public function theEmailAddressIsSearchedFor($email)
+    {
+        $redis = new Redis();
+        $redis->connect('127.0.0.1');
+        $redis->get($email);
+        $redis->close();
+    }
+
+    /**
+     * @Then the customer should be findable with :email
+     */
+    public function theCustomerShouldBeFindableWith($email)
+    {
+        $redis = new Redis();
+        $redis->connect('127.0.0.1');
+        $redis->exists($email);
+        $redis->get($email);
+        $redis->echo($email);
+        $redis->close();
+    }
 }

@@ -9,7 +9,7 @@ class Customer
     protected $starMeal = [];
 
     /**
-     * Person constructor.
+     * Customer constructor.
      *
      * @param string   $firstName
      * @param string   $email
