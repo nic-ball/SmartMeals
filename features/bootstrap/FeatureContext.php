@@ -1,9 +1,6 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
 use WorkSpace\PersonService\Domain\Customer;
 use WorkSpace\PersonService\Domain\Meal;
 use WorkSpace\PersonService\Domain\GymOwner;
@@ -472,9 +469,9 @@ class FeatureContext implements Context
     public function theCustomerHasNotSignedUpWithTheEmailAddress($email)
     {
         $redis = new Predis\Client([
-            "scheme" => "tcp",
-            "host" => "127.0.0.1",
-            "port" => 6379
+            'scheme' => 'tcp',
+            'host' => '127.0.0.1',
+            'port' => 6379
         ]);
         $redis->set('customer', $email);
         $redis->get('email');
@@ -491,9 +488,9 @@ class FeatureContext implements Context
     public function theCustomerSignsUpWithTheEmailAddress($email)
     {
         $redis = new Predis\Client([
-            "scheme" => "tcp",
-            "host" => "127.0.0.1",
-            "port" => 6379
+            'scheme' => 'tcp',
+            'host' => '127.0.0.1',
+            'port' => 6379
         ]);
         $redis->set('customer', $email);
         $redis->quit();
@@ -505,9 +502,9 @@ class FeatureContext implements Context
     public function theCustomerShouldBeSavedToTheDataStoreByTheEmailAddress($email)
     {
         $redis = new Predis\Client([
-            "scheme" => "tcp",
-            "host" => "127.0.0.1",
-            "port" => 6379
+            'scheme' => 'tcp',
+            'host' => '127.0.0.1',
+            'port' => 6379
         ]);
         $redis->get('email');
         if ($redis->exists($email) == false) {
@@ -525,9 +522,9 @@ class FeatureContext implements Context
     public function theCustomerHasSignedUpWithTheEmailAddress($email)
     {
         $redis = new Predis\Client([
-            "scheme" => "tcp",
-            "host" => "127.0.0.1",
-            "port" => 6379
+            'scheme' => 'tcp',
+            'host' => '127.0.0.1',
+            'port' => 6379
         ]);
         $redis->exists($email);
         $redis->quit();
@@ -539,9 +536,9 @@ class FeatureContext implements Context
     public function theCustomerAttemptsToSignUpAgainWithTheSameEmailAddress2($email)
     {
         $redis = new Predis\Client([
-            "scheme" => "tcp",
-            "host" => "127.0.0.1",
-            "port" => 6379
+            'scheme' => 'tcp',
+            'host' => '127.0.0.1',
+            'port' => 6379
         ]);
         $redis->set('customer', $email);
         $redis->get('email');
@@ -557,9 +554,9 @@ class FeatureContext implements Context
     public function theCustomerShouldStillBeSignedUpWithTheEmailAddress($email)
     {
         $redis = new Predis\Client([
-            "scheme" => "tcp",
-            "host" => "127.0.0.1",
-            "port" => 6379
+            'scheme' => 'tcp',
+            'host' => '127.0.0.1',
+            'port' => 6379
         ]);
         $redis->exists($email);
         $custEmail = $redis->get($email);
@@ -572,9 +569,9 @@ class FeatureContext implements Context
     public function theEmailAddressIsSearchedFor($email)
     {
         $redis = new Predis\Client([
-            "scheme" => "tcp",
-            "host" => "127.0.0.1",
-            "port" => 6379
+            'scheme' => 'tcp',
+            'host' => '127.0.0.1',
+            'port' => 6379
         ]);
         $redis->get($email);
         $redis->quit();
@@ -586,9 +583,9 @@ class FeatureContext implements Context
     public function theCustomerShouldBeFindableWith($email)
     {
         $redis = new Predis\Client([
-            "scheme" => "tcp",
-            "host" => "127.0.0.1",
-            "port" => 6379
+            'scheme' => 'tcp',
+            'host' => '127.0.0.1',
+            'port' => 6379
         ]);
         $redis->exists($email);
         $redis->get($email);
