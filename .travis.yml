@@ -3,4 +3,6 @@ php:
   - '7.1'
 install:
  - composer install
+services:
+ - redis-server
 script: make test
