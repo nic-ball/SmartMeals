@@ -471,15 +471,18 @@ class FeatureContext implements Context
      */
     public function theCustomerHasNotSignedUpWithTheEmailAddress($email)
     {
-        $redis = new Redis();
-        $redis->connect('127.0.0.1', 6379);
+        $redis = new Predis\Client([
+            "scheme" => "tcp",
+            "host" => "127.0.0.1",
+            "port" => 6379
+        ]);
         $redis->set('customer', $email);
         $redis->get('email');
         if ($redis->exists($email) == true) {
             throw new Exception('Email address has already been used to sign up');
         }
         $redis->set('customer', $email);
-        $redis->close();
+        $redis->quit();
     }
 
     /**
@@ -487,10 +490,13 @@ class FeatureContext implements Context
      */
     public function theCustomerSignsUpWithTheEmailAddress($email)
     {
-        $redis = new Redis();
-        $redis->connect('127.0.0.1', 6379);
+        $redis = new Predis\Client([
+            "scheme" => "tcp",
+            "host" => "127.0.0.1",
+            "port" => 6379
+        ]);
         $redis->set('customer', $email);
-        $redis->close();
+        $redis->quit();
     }
 
     /**
@@ -498,16 +504,19 @@ class FeatureContext implements Context
      */
     public function theCustomerShouldBeSavedToTheDataStoreByTheEmailAddress($email)
     {
-        $redis = new Redis();
-        $redis->connect('127.0.0.1');
+        $redis = new Predis\Client([
+            "scheme" => "tcp",
+            "host" => "127.0.0.1",
+            "port" => 6379
+        ]);
         $redis->get('email');
         if ($redis->exists($email) == false) {
             echo 'Welcome to SmartMeals';
-            $redis->close();
+            $redis->quit();
         } else {
             throw new \Exception('Something has gone wrong');
         }
-        $redis->close();
+        $redis->quit();
     }
 
     /**
@@ -515,10 +524,13 @@ class FeatureContext implements Context
      */
     public function theCustomerHasSignedUpWithTheEmailAddress($email)
     {
-        $redis = new Redis();
-        $redis->connect('127.0.0.1');
+        $redis = new Predis\Client([
+            "scheme" => "tcp",
+            "host" => "127.0.0.1",
+            "port" => 6379
+        ]);
         $redis->exists($email);
-        $redis->close();
+        $redis->quit();
     }
 
     /**
@@ -526,14 +538,17 @@ class FeatureContext implements Context
      */
     public function theCustomerAttemptsToSignUpAgainWithTheSameEmailAddress2($email)
     {
-        $redis = new Redis();
-        $redis->connect('127.0.0.1');
+        $redis = new Predis\Client([
+            "scheme" => "tcp",
+            "host" => "127.0.0.1",
+            "port" => 6379
+        ]);
         $redis->set('customer', $email);
         $redis->get('email');
         if ($redis->exists($email) == true) {
             throw new Exception('Email address has already been used to sign up');
         }
-        $redis->close();
+        $redis->quit();
     }
 
     /**
@@ -541,8 +556,11 @@ class FeatureContext implements Context
      */
     public function theCustomerShouldStillBeSignedUpWithTheEmailAddress($email)
     {
-        $redis = new Redis();
-        $redis->connect('127.0.0.1');
+        $redis = new Predis\Client([
+            "scheme" => "tcp",
+            "host" => "127.0.0.1",
+            "port" => 6379
+        ]);
         $redis->exists($email);
         $custEmail = $redis->get($email);
         echo 'You have already signed up with: ' . $custEmail;
@@ -553,10 +571,13 @@ class FeatureContext implements Context
      */
     public function theEmailAddressIsSearchedFor($email)
     {
-        $redis = new Redis();
-        $redis->connect('127.0.0.1');
+        $redis = new Predis\Client([
+            "scheme" => "tcp",
+            "host" => "127.0.0.1",
+            "port" => 6379
+        ]);
         $redis->get($email);
-        $redis->close();
+        $redis->quit();
     }
 
     /**
@@ -564,11 +585,14 @@ class FeatureContext implements Context
      */
     public function theCustomerShouldBeFindableWith($email)
     {
-        $redis = new Redis();
-        $redis->connect('127.0.0.1');
+        $redis = new Predis\Client([
+            "scheme" => "tcp",
+            "host" => "127.0.0.1",
+            "port" => 6379
+        ]);
         $redis->exists($email);
         $redis->get($email);
         $redis->echo($email);
-        $redis->close();
+        $redis->quit();
     }
 }
