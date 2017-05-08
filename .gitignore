@@ -8,4 +8,3 @@ dump.rdb
 composer.phar
 composer.lock
 /vendor/
-test.php

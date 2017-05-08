@@ -7,9 +7,9 @@ use WorkSpace\PersonService\Domain\CustomerRepositoryInterface;
 
 class RedisCustomerRepository implements CustomerRepositoryInterface
 {
-    /**
-     *    @var Redis
-     **/
+    /*
+     * @Redis
+     */
 
     private $client;
 
@@ -22,9 +22,9 @@ class RedisCustomerRepository implements CustomerRepositoryInterface
                 'port' => 6379,
                 'database' => 0
             ]);
-            echo "Successfully connected to Redis";
+            echo 'Successfully connected to Redis';
         } catch (Exception $e) {
-            echo "Couldn't connect to Redis";
+            echo 'Couldn\'t connect to Redis';
             echo $e->getMessage();
         }
     }
@@ -42,15 +42,5 @@ class RedisCustomerRepository implements CustomerRepositoryInterface
         $this->client->connect('127.0.0.1', 6379);
         $this->client->get($email);
         $this->client->close();
-    }
-
-    public function signedUp(Customer $email)
-    {
-        $this->client->connect('127.0.0.1', 6379);
-        $custEmail = $this->client->get($email);
-        if ($this->client->exists($email)) {
-            throw new \Exception('You have already signed up with the e-mail address' . $custEmail);
-        }
-        $this->client->get($email);
     }
 }
