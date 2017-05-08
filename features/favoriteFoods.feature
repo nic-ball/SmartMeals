@@ -9,29 +9,29 @@ Feature: Starring a meal from the menu
   - Starred meals should be removable
 
   Scenario: Star a meal
-    Given there is a customer called "Nic"
+    Given there is a customer with the email address "nic@nic.com"
     And there is a meal with the menu number 12
-    And "Nic" has no starred meals
-    When "Nic" stars a meal with the menu number 12
-    Then "Nic" should have a starred meal with the menu number 12
+    And "nic@nic.com" has no starred meals
+    When "nic@nic.com" stars a meal with the menu number 12
+    Then "nic@nic.com" should have a starred meal with the menu number 12
 
   Scenario: Star duplicate meals
-    Given there is a customer called "Jim"
+    Given there is a customer with the email address "nic@nic.com"
     And there is a meal with the menu number 1
-    And "Jim" has starred a meal with the menu number 1
-    When "Jim" attempts to star the meal with the menu number 1
-    Then "Jim" should have a starred meal with the menu number 1
+    And "nic@nic.com" has starred a meal with the menu number 1
+    When "nic@nic.com" attempts to star the meal with the menu number 1
+    Then "nic@nic.com" should have a starred meal with the menu number 1
 
   Scenario: Remove Starred meal
-    Given there is a customer called "Corey"
+    Given there is a customer with the email address "nic@nic.com"
     And there is a meal with the menu number 1
-    And "Corey" has starred a meal with the menu number 1
-    When "Corey" unstars the meal with the menu number 1
-    Then "Corey" should not have a starred meal with the menu number 1
+    And "nic@nic.com" has starred a meal with the menu number 1
+    When "nic@nic.com" unstars the meal with the menu number 1
+    Then "nic@nic.com" should not have a starred meal with the menu number 1
 
   Scenario: Attempting to unstar a meal that has not been starred
-    Given there is a customer called "Ron"
+    Given there is a customer with the email address "nic@nic.com"
     And there is a meal with the menu number 1
-    And "Ron" has no starred meals
-    When "Ron" attempts to unstar meal with the menu number 1
-    Then "Ron" should not have a starred meal with the menu number 1
+    And "nic@nic.com" has no starred meals
+    When "nic@nic.com" attempts to unstar meal with the menu number 1
+    Then "nic@nic.com" should not have a starred meal with the menu number 1

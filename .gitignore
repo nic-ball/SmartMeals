@@ -4,7 +4,7 @@
 
 #Dependencies
 
-
+dump.rdb
 composer.phar
 composer.lock
 /vendor/
