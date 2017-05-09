@@ -2,7 +2,6 @@
 
 namespace Infrastructure;
 
-
 use WorkSpace\PersonService\Domain\Meal;
 use WorkSpace\PersonService\Domain\MealRepositoryInterface;
 
