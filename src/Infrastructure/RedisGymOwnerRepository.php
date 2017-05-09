@@ -2,25 +2,25 @@
 
 namespace Infrastructure;
 
-use WorkSpace\PersonService\Domain\Customer;
-use WorkSpace\PersonService\Domain\CustomerRepositoryInterface;
+use WorkSpace\PersonService\Domain\GymOwner;
+use WorkSpace\PersonService\Domain\GymOwnerRepositoryInterface;
 
-class RedisCustomerRepository implements CustomerRepositoryInterface
+class RedisGymOwnerRepository implements GymOwnerRepositoryInterface
 {
     /*
      * @Redis
      */
 
-    public function save(Customer $customer)
+    public function save(GymOwner $gymOwner)
     {
         $client = new \Redis();
         $client->connect('127.0.0.1', 6379);
-        $client->set('customer', $customer);
+        $client->set('gymOwner', $gymOwner);
         $client->save();
         $client->close();
     }
 
-    public function findByEmail(Customer $email)
+    public function findByEmail(GymOwner $email)
     {
         $client = new \Redis();
         $client->connect('127.0.0.1', 6379);
